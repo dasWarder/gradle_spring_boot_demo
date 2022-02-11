@@ -1,0 +1,34 @@
+allprojects {
+
+    def prodProfile = 'prod'
+    def devProfile = 'dev'
+    def dockerProfile = 'docker'
+    def testProfile = 'test'
+    def activeProfile
+
+    if(project.hasProperty('prod')) {
+        activeProfile = prodProfile
+        apply from: rootProject.file('profiles/prod.gradle')
+
+    } else if (project.hasProperty('dev')) {
+        activeProfile = devProfile
+        apply from: rootProject.file('profiles/dev.gradle')
+
+    } else if (project.hasProperty('docker')) {
+        activeProfile = dockerProfile
+        apply from: rootProject.file('profiles/docker.gradle')
+
+    } else if (project.hasProperty('test')) {
+        activeProfile = testProfile
+        apply from: rootProject.file('profiles/test.gradle')
+
+    }
+
+
+    bootRun {
+        systemProperties = [
+                'spring.profiles.active': activeProfile
+        ]
+    }
+}
+

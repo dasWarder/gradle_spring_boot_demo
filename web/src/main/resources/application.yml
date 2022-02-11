@@ -1,11 +1,6 @@
 spring:
-  datasource:
-    username: user
-    password: pass
-    url: jdbc:postgresql://localhost:2345/main
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
-    generate-ddl: true
+  profiles:
+    active: '@spring.profiles.active@'
+
+server:
+  port: 9292
